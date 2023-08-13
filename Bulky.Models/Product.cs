@@ -1,0 +1,48 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+
+namespace Bulky.Models
+{
+    public class Product
+    {
+        [Key]//primary key
+        public int Id { get; set; }
+        [Required]//not null
+        public string Title { get; set; }
+        public string Description { get; set; }
+        [Required]
+        public string ISBN { get; set; }
+        [Required]
+        public string Author { get; set; }
+        [Required]
+        [Display(Name ="List Price")]
+        [Range(1, 100)]
+        public double ListPrice { get; set; }
+        [Required]
+        [Display(Name = "Price for 1-50")]
+        [Range(1, 100)]
+        public double Price { get; set; }
+        [Required]
+        [Display(Name = "Price for 50+")]
+        [Range(1, 100)]
+        public double Price50 { get; set; }
+        [Required]
+        [Display(Name = "Price for 100+")]
+        [Range(1, 100)]
+        public double Price100 { get; set; }
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        [ValidateNever]
+        public Category Category { get; set; }
+        //in order to explicitly define that we need a navigation property to Category Table
+        [ValidateNever]
+        public string ImageUrl { get; set; }
+    }
+}
